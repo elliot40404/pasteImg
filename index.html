@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASTE IMAGE</title>
+    <style>
+        * {
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: rgb(5, 5, 5);
+            display: grid;
+            place-content: center;
+        }
+        .paste {
+            background: rgb(29, 29, 29);
+            height: 50vh;
+            width: 40vw;
+            border-radius: 20px;
+            padding: 20px;
+            color: rgb(51, 51, 51);
+            text-align: center;
+            display: grid;
+            place-content: center;
+            gap: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            background: rgb(60, 80, 255);
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+        <div ondrop="allowDrop(event)" ondragover="dragOver(event)" class="paste" id="paste">
+            <h1>PASTE IMAGE</h1>
+            <h4>or</h4>
+            <input hidden type="file" id="inp">
+            <button id="pick">Browse</button>
+            <img src="" id="img" />
+        </div>
+    <script>
+        document.getElementById('pick').onclick = () => document.getElementById('inp').click()
+        const showImage = (src) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('img').src = e.target.result;
+                document.getElementById('img').style.display = 'block';
+            }
+            reader.readAsDataURL(src);
+        }
+        document.getElementById('inp').onchange = (e) => showImage(e.target.files[0]);
+        document.getElementById('paste').addEventListener('paste', (e) => showImage(e.clipboardData.files[0]));
+        const allowDrop = (ev) => {
+            ev.preventDefault();
+            showImage(ev.dataTransfer.files[0]);
+        };
+        const dragOver = (ev) => ev.preventDefault()
+    </script>
+</body>
+</html>
