@@ -34,8 +34,10 @@ const dragOver = (e) => e.preventDefault()
 // padding: 20px;
 // color: rgb(51, 51, 51);
 // text - align: center;
-// display: grid;
-// place - content: center;
+// display: flex;
+// flex-direction: column;
+// justify-content: center;
+// align-items: center;
 // gap: 30px;
 //  }
 // #filePicker {
